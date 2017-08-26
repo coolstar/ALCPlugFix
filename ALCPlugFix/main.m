@@ -106,8 +106,11 @@ int main(int argc, const char * argv[]) {
         sourceAddr.mScope = kAudioDevicePropertyScopeOutput;
         sourceAddr.mElement = kAudioObjectPropertyElementMaster;
 
-        NSString *output1 = [@"hda-verb 0x18 SET_PIN_WIDGET_CONTROL 0x20" runAsCommand];
-        NSString *output2 = [@"hda-verb 0x1a SET_PIN_WIDGET_CONTROL 0x20" runAsCommand];
+        [@"hda-verb 0x19 SET_PIN_WIDGET_CONTROL 0x25" runAsCommand]; //Fix garbled headphones
+        [@"hda-verb 0x14 SET_PIN_WIDGET_CONTROL 0x40" runAsCommand]; //Fix speakers
+        [@"hda-verb 0x21 SET_PIN_WIDGET_CONTROL 0xc0" runAsCommand]; //Fix headphones
+        [@"hda-verb 0x12 SET_PIN_WIDGET_CONTROL 0x40" runAsCommand]; //Fix microphone
+        [@"hda-verb 0x1d SET_PIN_WIDGET_CONTROL 0x40" runAsCommand]; //Fix line in
 
         AudioObjectAddPropertyListenerBlock(defaultDevice, &sourceAddr, dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(UInt32 inNumberAddresses, const AudioObjectPropertyAddress * inAddresses) {
 
@@ -117,13 +120,19 @@ int main(int argc, const char * argv[]) {
             if (bDataSourceId == 'ispk') {
                 // Recognized as internal speakers
                 NSLog(@"Headphones removed! Fixing!");
-                NSString *output1 = [@"hda-verb 0x18 SET_PIN_WIDGET_CONTROL 0x20" runAsCommand];
-                NSString *output2 = [@"hda-verb 0x1a SET_PIN_WIDGET_CONTROL 0x20" runAsCommand];
+                [@"hda-verb 0x19 SET_PIN_WIDGET_CONTROL 0x25" runAsCommand]; //Fix garbled headphones
+                [@"hda-verb 0x14 SET_PIN_WIDGET_CONTROL 0x40" runAsCommand]; //Fix speakers
+                [@"hda-verb 0x21 SET_PIN_WIDGET_CONTROL 0xc0" runAsCommand]; //Fix headphones
+                [@"hda-verb 0x12 SET_PIN_WIDGET_CONTROL 0x40" runAsCommand]; //Fix microphone
+                [@"hda-verb 0x1d SET_PIN_WIDGET_CONTROL 0x40" runAsCommand]; //Fix line in
             } else if (bDataSourceId == 'hdpn') {
                 // Recognized as headphones
                 NSLog(@"Headphones inserted! Fixing!");
-                NSString *output1 = [@"hda-verb 0x18 SET_PIN_WIDGET_CONTROL 0x20" runAsCommand];
-                NSString *output2 = [@"hda-verb 0x1a SET_PIN_WIDGET_CONTROL 0x20" runAsCommand];
+                [@"hda-verb 0x19 SET_PIN_WIDGET_CONTROL 0x25" runAsCommand]; //Fix garbled headphones
+                [@"hda-verb 0x14 SET_PIN_WIDGET_CONTROL 0x40" runAsCommand]; //Fix speakers
+                [@"hda-verb 0x21 SET_PIN_WIDGET_CONTROL 0xc0" runAsCommand]; //Fix headphones
+                [@"hda-verb 0x12 SET_PIN_WIDGET_CONTROL 0x40" runAsCommand]; //Fix microphone
+                [@"hda-verb 0x1d SET_PIN_WIDGET_CONTROL 0x40" runAsCommand]; //Fix line in
             }
         });
 
