@@ -107,7 +107,9 @@ int main(int argc, const char * argv[]) {
         sourceAddr.mElement = kAudioObjectPropertyElementMaster;
 
         [@"hda-verb 0x19 SET_PIN_WIDGET_CONTROL 0x25" runAsCommand]; //Fix garbled headphones
+        [@"hda-verb 0x14 SET_UNSOLICITED_ENABLE 0x83" runAsCommand]; //Fix speakers
         [@"hda-verb 0x14 SET_PIN_WIDGET_CONTROL 0x40" runAsCommand]; //Fix speakers
+        [@"hda-verb 0x21 SET_UNSOLICITED_ENABLE 0x83" runAsCommand]; //Fix headphones
         [@"hda-verb 0x21 SET_PIN_WIDGET_CONTROL 0xc0" runAsCommand]; //Fix headphones
         [@"hda-verb 0x12 SET_PIN_WIDGET_CONTROL 0x40" runAsCommand]; //Fix microphone
         [@"hda-verb 0x1d SET_PIN_WIDGET_CONTROL 0x40" runAsCommand]; //Fix line in
@@ -120,18 +122,20 @@ int main(int argc, const char * argv[]) {
             if (bDataSourceId == 'ispk') {
                 // Recognized as internal speakers
                 NSLog(@"Headphones removed! Fixing!");
-                [@"hda-verb 0x19 SET_PIN_WIDGET_CONTROL 0x25" runAsCommand]; //Fix garbled headphones
+                [@"hda-verb 0x19 SET_PIN_WIDGET_CONTROL 0x00" runAsCommand]; //Fix garbled headphones
+                [@"hda-verb 0x14 SET_UNSOLICITED_ENABLE 0x83" runAsCommand]; //Fix speakers
                 [@"hda-verb 0x14 SET_PIN_WIDGET_CONTROL 0x40" runAsCommand]; //Fix speakers
-                [@"hda-verb 0x21 SET_PIN_WIDGET_CONTROL 0xc0" runAsCommand]; //Fix headphones
+                [@"hda-verb 0x21 SET_PIN_WIDGET_CONTROL 0x00" runAsCommand]; //Fix headphones
                 [@"hda-verb 0x12 SET_PIN_WIDGET_CONTROL 0x40" runAsCommand]; //Fix microphone
-                [@"hda-verb 0x1d SET_PIN_WIDGET_CONTROL 0x40" runAsCommand]; //Fix line in
+                [@"hda-verb 0x1d SET_PIN_WIDGET_CONTROL 0x00" runAsCommand]; //Fix line in
             } else if (bDataSourceId == 'hdpn') {
                 // Recognized as headphones
                 NSLog(@"Headphones inserted! Fixing!");
                 [@"hda-verb 0x19 SET_PIN_WIDGET_CONTROL 0x25" runAsCommand]; //Fix garbled headphones
-                [@"hda-verb 0x14 SET_PIN_WIDGET_CONTROL 0x40" runAsCommand]; //Fix speakers
+                [@"hda-verb 0x14 SET_PIN_WIDGET_CONTROL 0x00" runAsCommand]; //Fix speakers
+                [@"hda-verb 0x21 SET_UNSOLICITED_ENABLE 0x83" runAsCommand]; //Fix headphones
                 [@"hda-verb 0x21 SET_PIN_WIDGET_CONTROL 0xc0" runAsCommand]; //Fix headphones
-                [@"hda-verb 0x12 SET_PIN_WIDGET_CONTROL 0x40" runAsCommand]; //Fix microphone
+                [@"hda-verb 0x12 SET_PIN_WIDGET_CONTROL 0x00" runAsCommand]; //Fix microphone
                 [@"hda-verb 0x1d SET_PIN_WIDGET_CONTROL 0x40" runAsCommand]; //Fix line in
             }
         });
