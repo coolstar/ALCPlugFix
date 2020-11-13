@@ -6,9 +6,14 @@
     <true/>
     <key>Label</key>
     <string>good.win.ALCPlugFix</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+	<key>PATH</key>
+	<string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    </dict>
     <key>ProgramArguments</key>
     <array>
-        <string>/usr/bin/ALCPlugFix</string>
+        <string>/usr/local/bin/ALCPlugFix</string>
     </array>
     <key>RunAtLoad</key>
     <true/>
